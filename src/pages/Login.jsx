@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { login } from "../api/auth";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -21,22 +22,8 @@ export default function Login() {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:3000/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || "Login failed");
-      }
-
+      const data = await login(form.email, form.password);
       setToken(data.token);
-
       navigate("/");
     } catch (err) {
       setError(err.message);
@@ -73,3 +60,4 @@ export default function Login() {
     </div>
   );
 }
+  

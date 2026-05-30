@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 export default function Dashboard() {
   const { token } = useAuth();
+  const { logout } = useAuth();
   const [leads, setLeads] = useState([]);
 
   useEffect(() => {
@@ -46,9 +47,9 @@ export default function Dashboard() {
           ))}
         </ul>
       )}
-    <button onClick={() => window.location.reload()}>
-        Logout
-    </button>
+    <button onClick={logout}>
+      Logout
+      </button>
     </div>
   );
 }
